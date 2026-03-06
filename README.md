@@ -1,72 +1,79 @@
-Task Manager Backend API Documentation
+# Task Manager Backend
 
-1. Project Overview
+A RESTful API built with **Node.js** and **MongoDB** that lets users register,
+log in and manage personal tasks securely using JWT authentication.
 
-The Task Manager Backend is a RESTful API built using Node.js, Express.js, and MongoDB. It allows users to register, log in, and manage their personal tasks securely using JWT authentication.
+## Features
 
-Features:
+* User registration & login
+* Passwords hashed with **bcrypt**
+* JWT‑based authentication
+* CRUD operations for tasks
+* Each user only sees/edits their own tasks
 
-User registration and login
-Secure password hashing with bcrypt
-JWT-based authentication
-CRUD operations for tasks
-Each user can manage their own tasks
+## Technologies
 
-2. Technologies Used: 
+![Node.js](https://img.shields.io/badge/Node.js-339933?logo=node.js&logoColor=white)
+![Express](https://img.shields.io/badge/Express.js-000000?logo=express&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-47A248?logo=mongodb&logoColor=white)
+![Mongoose](https://img.shields.io/badge/Mongoose-880000?logo=mongoose&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-000000?logo=json-web-tokens&logoColor=white)
+![bcrypt](https://img.shields.io/badge/bcrypt-9f2d8c?logo=bcrypt&logoColor=white)
 
-node.js, Express.js, MongoDB, Mongoose, JWT, bcrypt, Postman(testing)
+## Setup
 
-3. Project Setup:
-
->clone project 
+```bash
+git clone <repo-url>
 cd task-manager-backend
-
->install dependencies
-npm installss
-
->start server
+npm install
 npm run dev
+```
 
->server runs on port: 5000
-http://localhost:5000
+Server listens on port `5000` → http://localhost:5000
 
-4. API End Points:
+## API Endpoints
 
->Register User
-endpoint: POST /api/auth/register
-body(JSON): 
+### Authentication
+
+**Register**  
+`POST /api/auth/register`  
+Body (JSON):
+
+```json
 {
-"name": "user_name",
-"email": "user_mail",
-"password": "user_password"
+  "name": "user_name",
+  "email": "user_mail",
+  "password": "user_password"
 }
+```
 
->Login User
-endpoint: POST /api/auth/login
-body: {
-"email": "user_mail",
-"password": "user_password"
+**Login**  
+`POST /api/auth/login`  
+Body:
+
+```json
+{
+  "email": "user_mail",
+  "password": "user_password"
 }
+```
 
->Task API
-Authorization: JWT_TOKEN
+### Tasks  
+All task routes require an `Authorization: Bearer <JWT_TOKEN>` header.
 
->Create Task
-endpoint: POST /api/tasks
-body: {
-"title": " ",
-"description": " "
-"status": "pending/completed"
-}
+* **Create task**  
+  `POST /api/tasks`  
+  Body:
 
->Get Tasks
-endpoint: GET /api/tasks
+  ```json
+  {
+    "title": " ",
+    "description": " ",
+    "status": "pending/completed"
+  }
+  ```
 
->Get task by ID
-endpoint: GET /api/tasks/:id
-
->Update Task
-endpoint: PUT /api/tasks/:id
-
->Delete Task
-endpoint: DELETE /api/tasks/:id
+* **Get all tasks** – `GET /api/tasks`  
+* **Get task by ID** – `GET /api/tasks/:id`  
+* **Update task** – `PUT /api/tasks/:id`  
+* **Delete task** – `DELETE /api/tasks/:id`
